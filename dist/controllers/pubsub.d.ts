@@ -5,7 +5,7 @@ export declare namespace PubSub {
         id: string;
         ws: any;
         userId: string | null;
-        subscriptions: any[];
+        subscriptions: string[];
         allowPublish: boolean;
         allowBroadcast: boolean;
     }
@@ -49,12 +49,6 @@ export declare class PubSub {
      */
     protected handleReceivedClientMessage(clientId: string, messageStr: string): void;
     publish(topic: string, msg: any): void;
-    /**
-     * Convert string of message to JSON
-     * @param message
-     * @returns {*}
-     */
-    stringToJson(message: string): {};
     /**
      * Add new client connection to the map
      * @param client

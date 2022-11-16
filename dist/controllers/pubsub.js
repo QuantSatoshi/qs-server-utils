@@ -27,6 +27,7 @@ exports.PubSub = void 0;
 const immutable_1 = require("immutable");
 const uuid = __importStar(require("uuid"));
 const subscription_1 = require("./subscription");
+const commonUtils_1 = require("../utils/commonUtils");
 class PubSub {
     constructor(ctx) {
         this.clients = new immutable_1.Map();
@@ -142,7 +143,7 @@ class PubSub {
             console.error(`no client for ${clientId}`);
             return;
         }
-        const message = this.stringToJson(messageStr);
+        const message = (0, commonUtils_1.stringToJson)(messageStr);
         const topic = (_a = message === null || message === void 0 ? void 0 : message.payload) === null || _a === void 0 ? void 0 : _a.topic;
         const payloadMessage = (_b = message === null || message === void 0 ? void 0 : message.payload) === null || _b === void 0 ? void 0 : _b.message;
         const action = message === null || message === void 0 ? void 0 : message.action;
@@ -187,20 +188,6 @@ class PubSub {
     }
     publish(topic, msg) {
         this.handlePublishMessage(topic, msg, null, false);
-    }
-    /**
-     * Convert string of message to JSON
-     * @param message
-     * @returns {*}
-     */
-    stringToJson(message) {
-        try {
-            message = JSON.parse(message);
-        }
-        catch (e) {
-            console.log(e);
-        }
-        return {};
     }
     /**
      * Add new client connection to the map

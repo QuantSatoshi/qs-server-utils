@@ -1,13 +1,14 @@
 import { Map } from 'immutable';
 import * as uuid from 'uuid';
 import { Subscription } from './subscription';
+import { stringToJson } from '../utils/commonUtils';
 
 export namespace PubSub {
   export interface Client {
     id: string;
     ws: any;
     userId: string | null;
-    subscriptions: any[];
+    subscriptions: string[];
     allowPublish: boolean;
     allowBroadcast: boolean;
   }
@@ -62,7 +63,6 @@ export class PubSub {
         });
 
         // now let remove client
-
         this.removeClient(id);
       });
     });
@@ -149,9 +149,7 @@ export class PubSub {
       return;
     }
 
-    const message: { payload: { topic?: string; message?: string }; action: string } = this.stringToJson(
-      messageStr,
-    ) as any;
+    const message: { payload: { topic?: string; message?: string }; action: string } = stringToJson(messageStr) as any;
     const topic = message?.payload?.topic;
     const payloadMessage = message?.payload?.message;
 
@@ -206,21 +204,6 @@ export class PubSub {
 
   publish(topic: string, msg: any) {
     this.handlePublishMessage(topic, msg, null, false);
-  }
-
-  /**
-   * Convert string of message to JSON
-   * @param message
-   * @returns {*}
-   */
-  stringToJson(message: string) {
-    try {
-      message = JSON.parse(message);
-    } catch (e) {
-      console.log(e);
-    }
-
-    return {};
   }
 
   /**

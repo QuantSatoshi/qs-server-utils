@@ -1,6 +1,6 @@
 {
-  "name": "@qs/server-utils",
-  "version": "0.0.1",
+  "name": "@qs1/server-utils",
+  "version": "0.1.1",
   "description": "``` yarn add @qs/server-utils",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
