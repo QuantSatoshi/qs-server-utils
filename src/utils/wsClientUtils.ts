@@ -25,8 +25,7 @@ export function createWsListener(
     const json = JSON.parse(data.toString());
     if (json?.topic) {
       onMessage(json.topic, json.message);
-    }
-    {
+    } else {
       console.log(`unknown ws message`, data.toString());
     }
   });

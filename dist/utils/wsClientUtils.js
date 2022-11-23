@@ -24,7 +24,7 @@ function createWsListener(wsServerAddress, topics, onMessage) {
         if (json === null || json === void 0 ? void 0 : json.topic) {
             onMessage(json.topic, json.message);
         }
-        {
+        else {
             console.log(`unknown ws message`, data.toString());
         }
     });
