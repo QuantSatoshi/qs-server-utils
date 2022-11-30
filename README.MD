@@ -1,4 +1,4 @@
 ## usage
 ```
-yarn add @qs/server-utils
+yarn add @qs1/server-utils
 

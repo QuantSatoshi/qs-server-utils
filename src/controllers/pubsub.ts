@@ -2,6 +2,7 @@ import { Map } from 'immutable';
 import * as uuid from 'uuid';
 import { Subscription } from './subscription';
 import { stringToJson } from '../utils/commonUtils';
+import EventEmitter from 'events';
 
 export namespace PubSub {
   export interface Client {
@@ -14,14 +15,16 @@ export namespace PubSub {
   }
 }
 
-export class PubSub {
+export class PubSub extends EventEmitter {
   wss: any;
   clients: Map<string, any> = new (Map as any)();
   subscription = new Subscription();
   startedTime: number;
   handleLogin?: (message: any, client: PubSub.Client) => any;
+  handleNewClientConnectMessage?: () => Promise<any>;
 
   constructor(ctx: { wss: any; handleLogin?: (message: any, client: PubSub.Client) => any }) {
+    super();
     this.wss = ctx.wss;
     this.load();
     this.startedTime = Date.now();
@@ -30,6 +33,10 @@ export class PubSub {
 
   setHandleLogin(handleLogin: (message: any, client: PubSub.Client) => any) {
     this.handleLogin = handleLogin;
+  }
+
+  setHandleNewClientConnectMessage(handleNewClient: () => Promise<any>) {
+    this.handleNewClientConnectMessage = handleNewClient;
   }
 
   protected load() {
@@ -200,6 +207,7 @@ export class PubSub {
       default:
         break;
     }
+    this.emit(action, clientId, message);
   }
 
   publish(topic: string, msg: any) {
@@ -246,7 +254,7 @@ export class PubSub {
    * Send to client message
    * @param message
    */
-  protected send(clientId: string, message: any) {
+  send(clientId: string, message: any) {
     const client = this.getClient(clientId);
     if (!client) {
       return;

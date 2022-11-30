@@ -22,14 +22,19 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PubSub = void 0;
 const immutable_1 = require("immutable");
 const uuid = __importStar(require("uuid"));
 const subscription_1 = require("./subscription");
 const commonUtils_1 = require("../utils/commonUtils");
-class PubSub {
+const events_1 = __importDefault(require("events"));
+class PubSub extends events_1.default {
     constructor(ctx) {
+        super();
         this.clients = new immutable_1.Map();
         this.subscription = new subscription_1.Subscription();
         this.wss = ctx.wss;
@@ -39,6 +44,9 @@ class PubSub {
     }
     setHandleLogin(handleLogin) {
         this.handleLogin = handleLogin;
+    }
+    setHandleNewClientConnectMessage(handleNewClient) {
+        this.handleNewClientConnectMessage = handleNewClient;
     }
     load() {
         const wss = this.wss;
@@ -185,6 +193,7 @@ class PubSub {
             default:
                 break;
         }
+        this.emit(action, clientId, message);
     }
     publish(topic, msg) {
         this.handlePublishMessage(topic, msg, null, false);

@@ -1,5 +1,7 @@
+/// <reference types="node" />
 import { Map } from 'immutable';
 import { Subscription } from './subscription';
+import EventEmitter from 'events';
 export declare namespace PubSub {
     interface Client {
         id: string;
@@ -10,17 +12,19 @@ export declare namespace PubSub {
         allowBroadcast: boolean;
     }
 }
-export declare class PubSub {
+export declare class PubSub extends EventEmitter {
     wss: any;
     clients: Map<string, any>;
     subscription: Subscription;
     startedTime: number;
     handleLogin?: (message: any, client: PubSub.Client) => any;
+    handleNewClientConnectMessage?: () => Promise<any>;
     constructor(ctx: {
         wss: any;
         handleLogin?: (message: any, client: PubSub.Client) => any;
     });
     setHandleLogin(handleLogin: (message: any, client: PubSub.Client) => any): void;
+    setHandleNewClientConnectMessage(handleNewClient: () => Promise<any>): void;
     protected load(): void;
     /**
      * Handle add subscription
@@ -74,5 +78,5 @@ export declare class PubSub {
      * Send to client message
      * @param message
      */
-    protected send(clientId: string, message: any): void;
+    send(clientId: string, message: any): void;
 }
