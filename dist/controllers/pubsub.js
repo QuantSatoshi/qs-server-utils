@@ -241,12 +241,12 @@ class PubSub extends events_1.default {
         }
         const ws = client.ws;
         try {
-            message = JSON.stringify(message);
+            const msg = typeof message !== 'string' ? JSON.stringify(message) : message;
+            ws.send(msg);
         }
         catch (err) {
             console.log('An error convert object message to string', err);
         }
-        ws.send(message);
     }
 }
 exports.PubSub = PubSub;
