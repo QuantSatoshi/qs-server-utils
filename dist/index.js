@@ -21,3 +21,4 @@ var subscription_1 = require("./controllers/subscription");
 Object.defineProperty(exports, "Subscription", { enumerable: true, get: function () { return subscription_1.Subscription; } });
 __exportStar(require("./utils/commonUtils"), exports);
 __exportStar(require("./utils/wsClientUtils"), exports);
+__exportStar(require("./utils/printColorUtils"), exports);
