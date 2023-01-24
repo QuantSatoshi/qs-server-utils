@@ -87,6 +87,7 @@ export class PubSub extends EventEmitter {
       const subscriptionId = this.subscription.add(topic, clientId);
       client.subscriptions.push(subscriptionId);
       this.addClient(client);
+      this.emit(`subscribe`, topic, clientId);
     }
   }
 
@@ -115,8 +116,10 @@ export class PubSub extends EventEmitter {
     // let update client subscriptions
     if (client) {
       client.subscriptions = clientSubscriptions;
+
       this.addClient(client);
     }
+    this.emit(`unsubscribe`, topic, clientId);
   }
 
   /**

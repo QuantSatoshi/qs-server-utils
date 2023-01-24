@@ -90,6 +90,7 @@ class PubSub extends events_1.default {
             const subscriptionId = this.subscription.add(topic, clientId);
             client.subscriptions.push(subscriptionId);
             this.addClient(client);
+            this.emit(`subscribe`, topic, clientId);
         }
     }
     /**
@@ -114,6 +115,7 @@ class PubSub extends events_1.default {
             client.subscriptions = clientSubscriptions;
             this.addClient(client);
         }
+        this.emit(`unsubscribe`, topic, clientId);
     }
     /**
      * Handle publish a message to a topic
