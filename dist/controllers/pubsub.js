@@ -70,12 +70,11 @@ class PubSub extends events_1.default {
                 // Find user subscriptions and remove
                 const userSubscriptions = this.subscription.getSubscriptions((sub) => sub.clientId === id);
                 userSubscriptions.forEach((sub) => {
-                    userSubscriptions.forEach((sub) => {
-                        const subInfo = this.subscription.get(sub.id);
+                    const subInfo = this.subscription.get(sub.id);
+                    if (subInfo) {
                         console.log(`unsubscribe`, subInfo.topic, subInfo.clientId);
                         this.emit('unsubscribe', subInfo.topic, subInfo.clientId);
-                        this.subscription.remove(sub.id);
-                    });
+                    }
                     this.subscription.remove(sub.id);
                 });
                 // now let remove client
