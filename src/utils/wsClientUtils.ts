@@ -29,5 +29,8 @@ export function createWsListener(
       console.log(`unknown ws message`, data.toString());
     }
   });
+  wsClient.on('error', (err: any) => {
+    console.error(`ws error`, err);
+  });
   return wsClient;
 }

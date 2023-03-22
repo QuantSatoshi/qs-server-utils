@@ -28,6 +28,9 @@ function createWsListener(wsServerAddress, topics, onMessage) {
             console.log(`unknown ws message`, data.toString());
         }
     });
+    wsClient.on('error', (err) => {
+        console.error(`ws error`, err);
+    });
     return wsClient;
 }
 exports.createWsListener = createWsListener;
