@@ -2,8 +2,8 @@ const https = require('https');
 
 const url = 'https://api.ipify.org?format=json';
 
-export async function getMyIp() {
-  return new Promise((resolve, reject) => {
+export async function getMyIp(): Promise<string> {
+  return new Promise<string>((resolve, reject) => {
     const request = https.request(url, (response: any) => {
       let data = '';
       response.on('data', (chunk: any) => {
@@ -12,7 +12,7 @@ export async function getMyIp() {
 
       response.on('end', () => {
         const body = JSON.parse(data);
-        resolve(body.ip);
+        resolve(body.ip as string);
       });
     });
 

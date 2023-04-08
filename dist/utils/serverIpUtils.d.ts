@@ -1,1 +1,1 @@
-export declare function getMyIp(): Promise<unknown>;
+export declare function getMyIp(): Promise<string>;
