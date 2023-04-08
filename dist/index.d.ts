@@ -3,3 +3,4 @@ export { Subscription } from './controllers/subscription';
 export * from './utils/commonUtils';
 export * from './utils/wsClientUtils';
 export * from './utils/printColorUtils';
+export * from './utils/serverIpUtils';
