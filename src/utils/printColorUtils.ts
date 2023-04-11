@@ -28,6 +28,6 @@ export enum ConsoleColors {
   BgGray = '\x1b[100m',
 }
 
-export function printColor(color: ConsoleColors, text: string) {
-  return `${color}text${ConsoleColors.Reset}`;
+export function printColor(color: ConsoleColors, text: string | number) {
+  return `${color}${text}${ConsoleColors.Reset}`;
 }

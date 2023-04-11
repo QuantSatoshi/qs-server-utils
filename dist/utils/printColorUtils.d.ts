@@ -25,4 +25,4 @@ export declare enum ConsoleColors {
     BgWhite = "\u001B[47m",
     BgGray = "\u001B[100m"
 }
-export declare function printColor(color: ConsoleColors, text: string): string;
+export declare function printColor(color: ConsoleColors, text: string | number): string;

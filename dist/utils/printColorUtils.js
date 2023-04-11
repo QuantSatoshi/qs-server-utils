@@ -30,6 +30,6 @@ var ConsoleColors;
     ConsoleColors["BgGray"] = "\u001B[100m";
 })(ConsoleColors = exports.ConsoleColors || (exports.ConsoleColors = {}));
 function printColor(color, text) {
-    return `${color}text${ConsoleColors.Reset}`;
+    return `${color}${text}${ConsoleColors.Reset}`;
 }
 exports.printColor = printColor;
