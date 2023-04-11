@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConsoleColors = void 0;
+exports.printColor = exports.ConsoleColors = void 0;
 var ConsoleColors;
 (function (ConsoleColors) {
     ConsoleColors["Reset"] = "\u001B[0m";
@@ -29,3 +29,7 @@ var ConsoleColors;
     ConsoleColors["BgWhite"] = "\u001B[47m";
     ConsoleColors["BgGray"] = "\u001B[100m";
 })(ConsoleColors = exports.ConsoleColors || (exports.ConsoleColors = {}));
+function printColor(color, text) {
+    return `${color}text${ConsoleColors.Reset}`;
+}
+exports.printColor = printColor;

@@ -27,3 +27,7 @@ export enum ConsoleColors {
   BgWhite = '\x1b[47m',
   BgGray = '\x1b[100m',
 }
+
+export function printColor(color: ConsoleColors, text: string) {
+  return `${color}text${ConsoleColors.Reset}`;
+}
