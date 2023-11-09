@@ -9,6 +9,7 @@ export namespace PubSub {
     id: string;
     ws: any;
     userId: string | null;
+    loggedIn?: boolean;
     subscriptions: string[];
     allowPublish: boolean;
     allowBroadcast: boolean;
@@ -20,7 +21,7 @@ export class PubSub extends EventEmitter {
   clients: Map<string, any> = new (Map as any)();
   subscription = new Subscription();
   startedTime: number;
-  handleLogin?: (message: any, client: PubSub.Client) => any;
+  handleLogin?: (message: any, client: PubSub.Client) => Promise<any>;
   handleNewClientConnectMessage?: () => Promise<any>;
 
   constructor(ctx: { wss: any; handleLogin?: (message: any, client: PubSub.Client) => any }) {
@@ -31,7 +32,7 @@ export class PubSub extends EventEmitter {
     this.handleLogin = ctx.handleLogin;
   }
 
-  setHandleLogin(handleLogin: (message: any, client: PubSub.Client) => any) {
+  setHandleLogin(handleLogin: (message: any, client: PubSub.Client) => Promise<any>) {
     this.handleLogin = handleLogin;
   }
 
@@ -152,6 +153,11 @@ export class PubSub extends EventEmitter {
     });
   }
 
+  isLoggedIn(clientId: string) {
+    const client = this.getClient(clientId);
+    return client?.loggedIn;
+  }
+
   /**
    * Handle receive client message
    * @param clientId
@@ -176,7 +182,11 @@ export class PubSub extends EventEmitter {
         this.send(clientId, { action: 'me', payload: { id: clientId, userId: client.userId } });
         break;
       case 'login':
-        this.handleLogin && this.handleLogin(message, client);
+        if (this.handleLogin) {
+          this.handleLogin(message, client).then((loginSuccess) => {
+            client.loggedIn = loginSuccess;
+          });
+        }
         break;
 
       case 'subscribe':

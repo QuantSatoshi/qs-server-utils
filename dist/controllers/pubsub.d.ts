@@ -7,6 +7,7 @@ export declare namespace PubSub {
         id: string;
         ws: any;
         userId: string | null;
+        loggedIn?: boolean;
         subscriptions: string[];
         allowPublish: boolean;
         allowBroadcast: boolean;
@@ -17,13 +18,13 @@ export declare class PubSub extends EventEmitter {
     clients: Map<string, any>;
     subscription: Subscription;
     startedTime: number;
-    handleLogin?: (message: any, client: PubSub.Client) => any;
+    handleLogin?: (message: any, client: PubSub.Client) => Promise<any>;
     handleNewClientConnectMessage?: () => Promise<any>;
     constructor(ctx: {
         wss: any;
         handleLogin?: (message: any, client: PubSub.Client) => any;
     });
-    setHandleLogin(handleLogin: (message: any, client: PubSub.Client) => any): void;
+    setHandleLogin(handleLogin: (message: any, client: PubSub.Client) => Promise<any>): void;
     setHandleNewClientConnectMessage(handleNewClient: () => Promise<any>): void;
     protected load(): void;
     /**
@@ -46,6 +47,7 @@ export declare class PubSub extends EventEmitter {
      * @isBroadcast = false that mean send all, if true, send all not me
      */
     protected handlePublishMessage(topic: string, message: any, from: string | null, isBroadcast?: boolean): void;
+    isLoggedIn(clientId: string): boolean | undefined;
     /**
      * Handle receive client message
      * @param clientId

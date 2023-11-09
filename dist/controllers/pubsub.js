@@ -146,6 +146,10 @@ class PubSub extends events_1.default {
             }
         });
     }
+    isLoggedIn(clientId) {
+        const client = this.getClient(clientId);
+        return client === null || client === void 0 ? void 0 : client.loggedIn;
+    }
     /**
      * Handle receive client message
      * @param clientId
@@ -168,7 +172,11 @@ class PubSub extends events_1.default {
                 this.send(clientId, { action: 'me', payload: { id: clientId, userId: client.userId } });
                 break;
             case 'login':
-                this.handleLogin && this.handleLogin(message, client);
+                if (this.handleLogin) {
+                    this.handleLogin(message, client).then(loginSuccess => {
+                        client.loggedIn = loginSuccess;
+                    });
+                }
                 break;
             case 'subscribe':
                 if (topic) {
