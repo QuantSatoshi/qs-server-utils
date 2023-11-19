@@ -173,7 +173,7 @@ class PubSub extends events_1.default {
                 break;
             case 'login':
                 if (this.handleLogin) {
-                    this.handleLogin(message, client).then(loginSuccess => {
+                    this.handleLogin(message, client).then((loginSuccess) => {
                         client.loggedIn = loginSuccess;
                     });
                 }
@@ -208,7 +208,6 @@ class PubSub extends events_1.default {
             default:
                 break;
         }
-        this.emit(action, clientId, message);
     }
     publish(topic, msg) {
         this.handlePublishMessage(topic, msg, null, false);

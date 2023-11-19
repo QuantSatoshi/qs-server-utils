@@ -225,7 +225,6 @@ export class PubSub extends EventEmitter {
       default:
         break;
     }
-    this.emit(action, clientId, message);
   }
 
   publish(topic: string, msg: any) {
