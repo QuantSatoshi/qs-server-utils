@@ -87,7 +87,7 @@ class PubSub extends events_1.default {
      * @param topic
      * @param clientId = subscriber
      */
-    handleAddSubscription(topic, clientId) {
+    handleAddSubscription(topic, clientId, sign) {
         if (!topic)
             throw new Error(`topic is required for handleAddSubscription`);
         const client = this.getClient(clientId);
@@ -95,7 +95,7 @@ class PubSub extends events_1.default {
             const subscriptionId = this.subscription.add(topic, clientId);
             client.subscriptions.push(subscriptionId);
             this.addClient(client);
-            this.emit(`subscribe`, topic, clientId);
+            this.emit(`subscribe`, topic, clientId, sign);
         }
     }
     /**
@@ -156,7 +156,7 @@ class PubSub extends events_1.default {
      * @param message
      */
     handleReceivedClientMessage(clientId, messageStr) {
-        var _a, _b;
+        var _a, _b, _c;
         const client = this.getClient(clientId);
         if (!client) {
             console.error(`no client for ${clientId}`);
@@ -164,7 +164,8 @@ class PubSub extends events_1.default {
         }
         const message = (0, commonUtils_1.stringToJson)(messageStr);
         const topic = (_a = message === null || message === void 0 ? void 0 : message.payload) === null || _a === void 0 ? void 0 : _a.topic;
-        const payloadMessage = (_b = message === null || message === void 0 ? void 0 : message.payload) === null || _b === void 0 ? void 0 : _b.message;
+        const sign = (_b = message === null || message === void 0 ? void 0 : message.payload) === null || _b === void 0 ? void 0 : _b.sign; // signature
+        const payloadMessage = (_c = message === null || message === void 0 ? void 0 : message.payload) === null || _c === void 0 ? void 0 : _c.message;
         const action = message === null || message === void 0 ? void 0 : message.action;
         switch (action) {
             case 'me':
@@ -180,7 +181,7 @@ class PubSub extends events_1.default {
                 break;
             case 'subscribe':
                 if (topic) {
-                    this.handleAddSubscription(topic, clientId);
+                    this.handleAddSubscription(topic, clientId, sign);
                 }
                 break;
             case 'unsubscribe':

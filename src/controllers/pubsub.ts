@@ -86,14 +86,14 @@ export class PubSub extends EventEmitter {
    * @param topic
    * @param clientId = subscriber
    */
-  protected handleAddSubscription(topic: string, clientId: string) {
+  protected handleAddSubscription(topic: string, clientId: string, sign?: string) {
     if (!topic) throw new Error(`topic is required for handleAddSubscription`);
     const client = this.getClient(clientId);
     if (client) {
       const subscriptionId = this.subscription.add(topic, clientId);
       client.subscriptions.push(subscriptionId);
       this.addClient(client);
-      this.emit(`subscribe`, topic, clientId);
+      this.emit(`subscribe`, topic, clientId, sign);
     }
   }
 
@@ -170,8 +170,11 @@ export class PubSub extends EventEmitter {
       return;
     }
 
-    const message: { payload: { topic?: string; message?: string }; action: string } = stringToJson(messageStr) as any;
+    const message: { payload: { topic?: string; message?: string; sign?: string }; action: string } = stringToJson(
+      messageStr,
+    ) as any;
     const topic = message?.payload?.topic;
+    const sign = message?.payload?.sign; // signature
     const payloadMessage = message?.payload?.message;
 
     const action = message?.action;
@@ -191,7 +194,7 @@ export class PubSub extends EventEmitter {
 
       case 'subscribe':
         if (topic) {
-          this.handleAddSubscription(topic, clientId);
+          this.handleAddSubscription(topic, clientId, sign);
         }
         break;
 

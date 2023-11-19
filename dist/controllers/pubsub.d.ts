@@ -32,7 +32,7 @@ export declare class PubSub extends EventEmitter {
      * @param topic
      * @param clientId = subscriber
      */
-    protected handleAddSubscription(topic: string, clientId: string): void;
+    protected handleAddSubscription(topic: string, clientId: string, sign?: string): void;
     /**
      * Handle unsubscribe topic
      * @param topic
