@@ -1,6 +1,6 @@
 {
   "name": "@qs1/server-utils",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "``` yarn add @qs/server-utils",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -30,19 +30,19 @@
   "author": "QS",
   "license": "ISC",
   "dependencies": {
-    "immutable": "^4.1.0",
-    "uuid": "^9.0.0",
-    "websocket-reconnect": "^1.0.7"
+    "immutable": "4.1.0",
+    "uuid": "9.0.0",
+    "websocket-reconnect": "1.0.9"
   },
   "devDependencies": {
-    "@ava/typescript": "^3.0.1",
-    "@types/node": "^18.11.9",
-    "@types/uuid": "^8.3.4",
-    "ava": "^5.0.1",
-    "prettier": "^2.7.1",
-    "rimraf": "^3.0.2",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.8.4"
+    "@ava/typescript": "3.0.1",
+    "@types/node": "18.11.9",
+    "@types/uuid": "8.3.4",
+    "ava": "5.0.1",
+    "prettier": "2.7.1",
+    "rimraf": "3.0.2",
+    "ts-node": "10.9.1",
+    "typescript": "4.8.4"
   },
   "bugs": {
     "url": "https://github.com/QuantSatoshi/qs-server-utils/issues"
