@@ -1174,10 +1174,10 @@ v8-compile-cache-lib@^3.0.1:
   resolved "https://registry.yarnpkg.com/v8-compile-cache-lib/-/v8-compile-cache-lib-3.0.1.tgz#6336e8d71965cb3d35a1bbb7868445a7c05264bf"
   integrity sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==
 
-websocket-reconnect@1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/websocket-reconnect/-/websocket-reconnect-1.0.9.tgz#a01061514186daa9ba96b6f62a2d02c9539e36f9"
-  integrity sha512-mDMQz2Z+HRgpIPwTUaP2eS0fwPii31bnxN2sVzMEb5HkJFrfeiEBXKwWG3tsfstP77bBkSNebEWuWz5bAdRTgQ==
+websocket-reconnect@1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/websocket-reconnect/-/websocket-reconnect-1.0.10.tgz#f68228c41f7c37ba926131f098b993c89983e1c0"
+  integrity sha512-XKOLCZ1vTey+VuljMzVEIKrfbO/bpslJDl2bH7mUZsraXbV9qfqgQGvgUeBF89NReIUpimmpIIi0dwBQEvFhJQ==
   dependencies:
     events "^3.3.0"
     ws "^8.11.0"

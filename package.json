@@ -1,6 +1,6 @@
 {
   "name": "@qs1/server-utils",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "description": "``` yarn add @qs/server-utils",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -32,7 +32,7 @@
   "dependencies": {
     "immutable": "4.1.0",
     "uuid": "9.0.0",
-    "websocket-reconnect": "1.0.9"
+    "websocket-reconnect": "1.0.10"
   },
   "devDependencies": {
     "@ava/typescript": "3.0.1",
