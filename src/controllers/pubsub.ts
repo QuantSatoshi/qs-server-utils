@@ -44,22 +44,22 @@ export class PubSub extends EventEmitter {
   protected load() {
     const wss = this.wss;
 
-    wss.on('connection', (ws: any) => {
+    wss.on('connection', (ws: any, request: any) => {
       const id = this.autoId();
 
       const client: PubSub.Client = {
-        id: id,
+        id,
         ws: ws,
         userId: null,
         subscriptions: [],
         allowPublish: false,
         allowBroadcast: false,
-        ip: ws.socket?.remoteAddress,
+        ip: request.socket?.remoteAddress,
       };
 
       // add new client to the map
       this.addClient(client);
-      console.log(`new client connected`);
+      console.log(`new client connected id=${id} ip=${request.socket?.remoteAddress}`);
 
       // listen when receive message from client
       ws.on('message', (message: string) => this.handleReceivedClientMessage(id, message));

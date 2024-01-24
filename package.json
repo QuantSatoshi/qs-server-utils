@@ -1,6 +1,6 @@
 {
   "name": "@qs1/server-utils",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "description": "``` yarn add @qs/server-utils",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -38,11 +38,13 @@
     "@ava/typescript": "3.0.1",
     "@types/node": "18.11.9",
     "@types/uuid": "8.3.4",
+    "@types/ws": "^8.5.10",
     "ava": "5.0.1",
     "prettier": "2.7.1",
     "rimraf": "3.0.2",
     "ts-node": "10.9.1",
-    "typescript": "4.8.4"
+    "typescript": "4.8.4",
+    "ws": "^8.16.0"
   },
   "bugs": {
     "url": "https://github.com/QuantSatoshi/qs-server-utils/issues"

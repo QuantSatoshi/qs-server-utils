@@ -50,21 +50,21 @@ class PubSub extends events_1.default {
     }
     load() {
         const wss = this.wss;
-        wss.on('connection', (ws) => {
-            var _a;
+        wss.on('connection', (ws, request) => {
+            var _a, _b;
             const id = this.autoId();
             const client = {
-                id: id,
+                id,
                 ws: ws,
                 userId: null,
                 subscriptions: [],
                 allowPublish: false,
                 allowBroadcast: false,
-                ip: (_a = ws.socket) === null || _a === void 0 ? void 0 : _a.remoteAddress
+                ip: (_a = request.socket) === null || _a === void 0 ? void 0 : _a.remoteAddress,
             };
             // add new client to the map
             this.addClient(client);
-            console.log(`new client connected`);
+            console.log(`new client connected id=${id} ip=${(_b = request.socket) === null || _b === void 0 ? void 0 : _b.remoteAddress}`);
             // listen when receive message from client
             ws.on('message', (message) => this.handleReceivedClientMessage(id, message));
             ws.on('close', () => {
