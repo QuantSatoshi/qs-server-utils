@@ -13,6 +13,7 @@ export namespace PubSub {
     subscriptions: string[];
     allowPublish: boolean;
     allowBroadcast: boolean;
+    ip: string;
   }
 }
 
@@ -53,6 +54,7 @@ export class PubSub extends EventEmitter {
         subscriptions: [],
         allowPublish: false,
         allowBroadcast: false,
+        ip: ws.socket?.remoteAddress,
       };
 
       // add new client to the map
@@ -156,6 +158,11 @@ export class PubSub extends EventEmitter {
   isLoggedIn(clientId: string) {
     const client = this.getClient(clientId);
     return client?.loggedIn;
+  }
+
+  getClientIp(clientId: string) {
+    const client = this.getClient(clientId);
+    return client?.ip;
   }
 
   /**

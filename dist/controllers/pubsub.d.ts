@@ -11,6 +11,7 @@ export declare namespace PubSub {
         subscriptions: string[];
         allowPublish: boolean;
         allowBroadcast: boolean;
+        ip: string;
     }
 }
 export declare class PubSub extends EventEmitter {
@@ -48,6 +49,7 @@ export declare class PubSub extends EventEmitter {
      */
     protected handlePublishMessage(topic: string, message: any, from: string | null, isBroadcast?: boolean): void;
     isLoggedIn(clientId: string): boolean | undefined;
+    getClientIp(clientId: string): string | undefined;
     /**
      * Handle receive client message
      * @param clientId

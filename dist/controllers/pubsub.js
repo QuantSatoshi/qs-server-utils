@@ -51,6 +51,7 @@ class PubSub extends events_1.default {
     load() {
         const wss = this.wss;
         wss.on('connection', (ws) => {
+            var _a;
             const id = this.autoId();
             const client = {
                 id: id,
@@ -59,6 +60,7 @@ class PubSub extends events_1.default {
                 subscriptions: [],
                 allowPublish: false,
                 allowBroadcast: false,
+                ip: (_a = ws.socket) === null || _a === void 0 ? void 0 : _a.remoteAddress
             };
             // add new client to the map
             this.addClient(client);
@@ -149,6 +151,10 @@ class PubSub extends events_1.default {
     isLoggedIn(clientId) {
         const client = this.getClient(clientId);
         return client === null || client === void 0 ? void 0 : client.loggedIn;
+    }
+    getClientIp(clientId) {
+        const client = this.getClient(clientId);
+        return client === null || client === void 0 ? void 0 : client.ip;
     }
     /**
      * Handle receive client message
