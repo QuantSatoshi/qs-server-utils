@@ -37,10 +37,14 @@ class PubSub extends events_1.default {
         super();
         this.clients = new immutable_1.Map();
         this.subscription = new subscription_1.Subscription();
+        this.allowBroadcast = false;
         this.wss = ctx.wss;
         this.load();
         this.startedTime = Date.now();
         this.handleLogin = ctx.handleLogin;
+        if (ctx.allowBroadcast) {
+            this.allowBroadcast = true;
+        }
     }
     setHandleLogin(handleLogin) {
         this.handleLogin = handleLogin;
@@ -208,7 +212,7 @@ class PubSub extends events_1.default {
                 }
                 break;
             case 'broadcast':
-                if (topic && client.allowBroadcast) {
+                if (topic && this.allowBroadcast) {
                     this.handlePublishMessage(topic, payloadMessage, clientId, true);
                 }
                 break;

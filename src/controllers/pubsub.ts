@@ -24,13 +24,17 @@ export class PubSub extends EventEmitter {
   startedTime: number;
   handleLogin?: (message: any, client: PubSub.Client) => Promise<any>;
   handleNewClientConnectMessage?: () => Promise<any>;
+  allowBroadcast = false;
 
-  constructor(ctx: { wss: any; handleLogin?: (message: any, client: PubSub.Client) => any }) {
+  constructor(ctx: { wss: any; allowBroadcast?: boolean; handleLogin?: (message: any, client: PubSub.Client) => any }) {
     super();
     this.wss = ctx.wss;
     this.load();
     this.startedTime = Date.now();
     this.handleLogin = ctx.handleLogin;
+    if (ctx.allowBroadcast) {
+      this.allowBroadcast = true;
+    }
   }
 
   setHandleLogin(handleLogin: (message: any, client: PubSub.Client) => Promise<any>) {
@@ -227,7 +231,7 @@ export class PubSub extends EventEmitter {
         break;
 
       case 'broadcast':
-        if (topic && client.allowBroadcast) {
+        if (topic && this.allowBroadcast) {
           this.handlePublishMessage(topic, payloadMessage, clientId, true);
         }
         break;

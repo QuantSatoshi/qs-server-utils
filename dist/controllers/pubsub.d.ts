@@ -21,8 +21,10 @@ export declare class PubSub extends EventEmitter {
     startedTime: number;
     handleLogin?: (message: any, client: PubSub.Client) => Promise<any>;
     handleNewClientConnectMessage?: () => Promise<any>;
+    allowBroadcast: boolean;
     constructor(ctx: {
         wss: any;
+        allowBroadcast?: boolean;
         handleLogin?: (message: any, client: PubSub.Client) => any;
     });
     setHandleLogin(handleLogin: (message: any, client: PubSub.Client) => Promise<any>): void;
